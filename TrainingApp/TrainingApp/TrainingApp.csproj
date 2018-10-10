@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncAwaitTrain.cs" />
     <Compile Include="MultiThreading.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
