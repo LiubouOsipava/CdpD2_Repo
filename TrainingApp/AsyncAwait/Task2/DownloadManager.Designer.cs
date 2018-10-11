@@ -41,6 +41,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(1654, 31);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "Enter Url for download here...";
+            this.textBox1.SelectionStart = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // label1
@@ -51,7 +53,6 @@
             this.label1.Size = new System.Drawing.Size(166, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "UrlForDownload";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // progressBar1
             // 
@@ -68,6 +69,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -77,6 +79,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // DownloadManager
             // 

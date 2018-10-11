@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Task2\Provider\DataProvider.cs" />
     <Compile Include="Task2\DownloadManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,7 +54,9 @@
     </Compile>
     <Compile Include="Task1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Task2.cs" />
+    <Compile Include="Task2\DownloadService.cs" />
+    <Compile Include="Task2\Provider\IDataProvider.cs" />
+    <Compile Include="Task2\UrlsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
