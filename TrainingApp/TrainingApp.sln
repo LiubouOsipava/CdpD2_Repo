@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreading", "MultiThre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait", "AsyncAwait\AsyncAwait.csproj", "{129187EC-D7F2-4C72-B408-CFD956219788}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionsIQuariable", "ExpressionsIQuariable\ExpressionsIQuariable.csproj", "{E36EFBCB-2F53-488C-BCC4-16CF465813D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{129187EC-D7F2-4C72-B408-CFD956219788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{129187EC-D7F2-4C72-B408-CFD956219788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{129187EC-D7F2-4C72-B408-CFD956219788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E36EFBCB-2F53-488C-BCC4-16CF465813D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E36EFBCB-2F53-488C-BCC4-16CF465813D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E36EFBCB-2F53-488C-BCC4-16CF465813D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E36EFBCB-2F53-488C-BCC4-16CF465813D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
