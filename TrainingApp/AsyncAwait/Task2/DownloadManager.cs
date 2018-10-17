@@ -22,7 +22,8 @@ namespace AsyncAwait.Task2
         {
             Debug.Write("Started");
             CancellationToken token = cts.Token;
-            while (UrlsManager.Urls.TryTake(out string urlItem, -1))
+            string urlItem;
+            while (UrlsManager.Urls.TryTake(out urlItem, -1))
             {
                 DownloadService.DownloadAndSave(urlItem, token);
             }
