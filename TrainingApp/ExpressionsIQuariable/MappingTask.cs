@@ -42,9 +42,10 @@ namespace ExpressionsIQuariable
         public Mapper<TSource, TDestination> Generate<TSource, TDestination>()
         {
             var sourceParam = Expression.Parameter(typeof(TSource));
+            var targetObject = Expression.New(typeof(TDestination));
             var mapFunction =
-                Expression.Lambda<Func<TSource, TDestination>>(Expression.New(typeof(TDestination)),sourceParam);
-
+                Expression.Lambda<Func<TSource, TDestination>>(targetObject, sourceParam);
+            
             Console.WriteLine(mapFunction);
             return new Mapper<TSource, TDestination>(mapFunction.Compile());
         }
@@ -52,7 +53,7 @@ namespace ExpressionsIQuariable
 
     public class ClassVisitor : ExpressionVisitor
     {
-        protected override Expression VisitBinary(BinaryExpression node)
+        protected override Expression VisitMember(BinaryExpression node)
         {
             if (node.NodeType == ExpressionType.Subtract)
             {
