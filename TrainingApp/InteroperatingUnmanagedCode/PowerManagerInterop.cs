@@ -1,48 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InteroperatingUnmanagedCode
 {
-    public class PowerInfoManager
+    internal class PowerManagerInterop
     {
-        static int SystemPowerInformation = 12;
-        static uint STATUS_SUCCESS = 0;
-
         [DllImport("powrprof.dll")]
-        static extern uint CallNtPowerInformation(
+        internal static extern uint CallNtPowerInformation(
             int InformationLevel,
             IntPtr lpInputBuffer,
             int nInputBufferSize,
             IntPtr lpOutputBuffer,
             int nOutputBufferSize
         );
-        
-        public static byte[] GetSystemPowerInformation()
-        {
-            IntPtr buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(SYSTEM_POWER_LEVEL)));
-            uint result = CallNtPowerInformation(SystemPowerInformation, IntPtr.Zero, 0, buffer, Marshal.SizeOf(typeof(SYSTEM_POWER_LEVEL)));
-            if (result == STATUS_SUCCESS)
-            {
-                SYSTEM_POWER_LEVEL powerInfo = (SYSTEM_POWER_LEVEL)Marshal.PtrToStructure(buffer, typeof(SYSTEM_POWER_LEVEL));
-                Console.WriteLine($"Battery Level: {powerInfo.BatteryLevel}");
-                return powerInfo.Spare;
-            }
-            else
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
-        }
+
+        [DllImport("powrprof.dll")]
+        internal static extern uint CallNtPowerInformation(
+            int InformationLevel,
+            IntPtr lpInputBuffer,
+            int nInputBufferSize,
+            [MarshalAs(UnmanagedType.Bool)][Out] bool lpOutputBuffer,
+            int nOutputBufferSize
+        );
+
+        [DllImport("powrprof.dll")]
+        internal static extern uint CallNtPowerInformation(
+            int InformationLevel,
+            IntPtr lpInputBuffer,
+            int nInputBufferSize,
+            [Out] SYSTEM_BATTERY_STATE lpOutputBuffer,
+            int nOutputBufferSize
+        );
+
+        [DllImport("powrprof.dll")]
+        internal static extern uint CallNtPowerInformation(
+            int InformationLevel,
+            IntPtr lpInputBuffer,
+            int nInputBufferSize,
+            [Out] Int64 lpOutputBuffer,
+            int nOutputBufferSize
+        );
+
+        [DllImport("Powrprof.dll", SetLastError = true)]
+        internal static extern bool SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
+
         
         #region PowerInfo
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct SYSTEM_POWER_LEVEL
+        internal struct SYSTEM_POWER_LEVEL
         {
             public bool Enable;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
@@ -53,13 +59,13 @@ namespace InteroperatingUnmanagedCode
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct POWER_ACTION_POLICY
+        internal struct POWER_ACTION_POLICY
         {
             public POWER_ACTION Action;
             public PowerActionFlags Flags;
             public PowerActionEventCode EventCode;
         }
-        enum POWER_ACTION : uint
+        internal enum POWER_ACTION : uint
         {
             PowerActionNone = 0,       // No system power action. 
             PowerActionReserved,       // Reserved; do not use. 
@@ -72,7 +78,7 @@ namespace InteroperatingUnmanagedCode
         }
 
         [Flags]
-        enum PowerActionFlags : uint
+        internal enum PowerActionFlags : uint
         {
             POWER_ACTION_QUERY_ALLOWED = 0x00000001, // Broadcasts a PBT_APMQUERYSUSPEND event to each application to request permission to suspend operation.
             POWER_ACTION_UI_ALLOWED = 0x00000002, // Applications can prompt the user for directions on how to prepare for suspension. Sets bit 0 in the Flags parameter passed in the lParam parameter of WM_POWERBROADCAST.
@@ -84,7 +90,7 @@ namespace InteroperatingUnmanagedCode
         }
 
         [Flags]
-        enum PowerActionEventCode : uint
+        internal enum PowerActionEventCode : uint
         {
             POWER_LEVEL_USER_NOTIFY_TEXT = 0x00000001, // User notified using the UI. 
             POWER_LEVEL_USER_NOTIFY_SOUND = 0x00000002, // User notified using sound. 
@@ -94,7 +100,7 @@ namespace InteroperatingUnmanagedCode
             POWER_FORCE_TRIGGER_RESET = 0x80000000, // Clears a user power button press. 
         }
 
-        public enum SYSTEM_POWER_STATE
+        internal enum SYSTEM_POWER_STATE
         {
             PowerSystemUnspecified = 0,
             PowerSystemWorking = 1,
@@ -107,5 +113,24 @@ namespace InteroperatingUnmanagedCode
         }
 
         #endregion
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        internal struct SYSTEM_BATTERY_STATE
+        {
+            public byte AcOnLine;
+            public byte BatteryPresent;
+            public byte Charging;
+            public byte Discharging;
+            public byte spare1;
+            public byte spare2;
+            public byte spare3;
+            public byte spare4;
+            public UInt32 MaxCapacity;
+            public UInt32 RemainingCapacity;
+            public Int32 Rate;
+            public UInt32 EstimatedTime;
+            public UInt32 DefaultAlert1;
+            public UInt32 DefaultAlert2;
+        }
     }
 }

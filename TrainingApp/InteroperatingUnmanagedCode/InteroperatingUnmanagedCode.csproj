@@ -47,13 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BatteryManager.cs" />
-    <Compile Include="HybernateFileManager.cs" />
-    <Compile Include="Hybernator.cs" />
-    <Compile Include="PowerInfoManager.cs" />
+    <Compile Include="Managers\BatteryManager.cs" />
+    <Compile Include="Managers\HybernateFileManager.cs" />
+    <Compile Include="Managers\Hybernator.cs" />
+    <Compile Include="Managers\PowerInfoManager.cs" />
+    <Compile Include="PowerManagerInterop.cs" />
     <Compile Include="PowerManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SleepWakeTimeManager.cs" />
+    <Compile Include="Managers\SleepWakeTimeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
