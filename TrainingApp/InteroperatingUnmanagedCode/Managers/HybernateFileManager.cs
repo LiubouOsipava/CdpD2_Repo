@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using InteroperatingUnmanagedCode.NativePowerManager;
 
 namespace InteroperatingUnmanagedCode.Managers
 {
@@ -14,15 +15,9 @@ namespace InteroperatingUnmanagedCode.Managers
             IntPtr buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(bool)));
             Marshal.WriteInt32(buffer, 0, Convert.ToInt32(isHybernateFileReserved));
             bool resultState = false;
-            uint result = PowerManagerInterop.CallNtPowerInformation(SystemReserveHiberFile, buffer, 0, resultState, Marshal.SizeOf(typeof(bool)));
-            //if (result == STATUS_SUCCESS)
-            //{
-                return resultState;
-            //}
-            //else
-            //{
-            //    throw new Win32Exception(Marshal.GetLastWin32Error());
-            //}
+            PowerManagerInterop.CallNtPowerInformation(SystemReserveHiberFile, buffer, 0, resultState, Marshal.SizeOf(typeof(bool)));
+            return resultState;
+           
         }
     }
 }

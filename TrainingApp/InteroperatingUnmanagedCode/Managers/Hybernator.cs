@@ -1,4 +1,6 @@
-﻿namespace InteroperatingUnmanagedCode.Managers
+﻿using InteroperatingUnmanagedCode.NativePowerManager;
+
+namespace InteroperatingUnmanagedCode.Managers
 {
     static class Hybernator
     {

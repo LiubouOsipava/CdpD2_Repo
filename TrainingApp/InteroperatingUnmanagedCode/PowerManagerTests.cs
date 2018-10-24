@@ -16,19 +16,20 @@ namespace InteroperatingUnmanagedCode
         [Test]
         public void LastSleepTimeTest()
         {
-            SleepWakeTimeManager.GetLastSleepTime();
+            Console.WriteLine($"Interrupt-time count: {SleepWakeTimeManager.GetLastSleepTime()}");
         }
 
         [Test]
         public void LastWakeTimeTest()
         {
-            SleepWakeTimeManager.GetLastWakeTime();
+            Console.WriteLine($"Interrupt-time count: {SleepWakeTimeManager.GetLastWakeTime()}");
+            
         }
 
         [Test]
         public void SystemBatteryStateTest()
         {
-            Console.WriteLine($"MaxCapacity: {BatteryManager.GetSystemBatteryState()}");
+            Console.WriteLine($"RemainingCapacity: {BatteryManager.GetSystemBatteryState()}");
         }
 
         [Test]

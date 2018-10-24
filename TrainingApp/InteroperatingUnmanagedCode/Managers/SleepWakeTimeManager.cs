@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using InteroperatingUnmanagedCode.NativePowerManager;
 
 namespace InteroperatingUnmanagedCode.Managers
 {
@@ -7,34 +8,21 @@ namespace InteroperatingUnmanagedCode.Managers
     {
         private static int LastSleepTime = 15;
         private static int LastWakeTime = 14;
-        const uint STATUS_SUCCESS = 0;
         
-        public static void GetLastSleepTime()
+        public static Int64 GetLastSleepTime()
         {
             IntPtr buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(Int64)));
-            uint result = PowerManagerInterop.CallNtPowerInformation(SleepWakeTimeManager.LastSleepTime, IntPtr.Zero, 0, buffer.ToInt64(), Marshal.SizeOf(typeof(Int64)));
-            //if (result == STATUS_SUCCESS)
-            //{
-                Console.WriteLine($"Interrupt-time count: {buffer}");
-            //}
-            //else
-            //{
-            //    throw new Win32Exception(Marshal.GetLastWin32Error());
-            //}
+            PowerManagerInterop.CallNtPowerInformation(SleepWakeTimeManager.LastSleepTime, IntPtr.Zero, 0, buffer.ToInt64(), Marshal.SizeOf(typeof(Int64)));
+            
+            return buffer.ToInt64();
         }
 
-        public static void GetLastWakeTime()
+        public static Int64 GetLastWakeTime()
         {
             IntPtr buffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(Int64)));
-            uint result = PowerManagerInterop.CallNtPowerInformation(SleepWakeTimeManager.LastWakeTime, IntPtr.Zero, 0, buffer.ToInt64(), Marshal.SizeOf(typeof(Int64)));
-            //if (result == STATUS_SUCCESS)
-            //{
-                Console.WriteLine($"Interrupt-time count: {buffer}");
-            //}
-            //else
-            //{
-            //    throw new Win32Exception(Marshal.GetLastWin32Error());
-            //}
+            PowerManagerInterop.CallNtPowerInformation(SleepWakeTimeManager.LastWakeTime, IntPtr.Zero, 0, buffer.ToInt64(), Marshal.SizeOf(typeof(Int64)));
+            
+            return buffer.ToInt64();
         }
     }
 }

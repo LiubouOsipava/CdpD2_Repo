@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace InteroperatingUnmanagedCode
+namespace InteroperatingUnmanagedCode.NativePowerManager
 {
     internal class PowerManagerInterop
     {
@@ -43,9 +43,6 @@ namespace InteroperatingUnmanagedCode
 
         [DllImport("Powrprof.dll", SetLastError = true)]
         internal static extern bool SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
-
-        
-        #region PowerInfo
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct SYSTEM_POWER_LEVEL
@@ -112,7 +109,7 @@ namespace InteroperatingUnmanagedCode
             PowerSystemMaximum = 7
         }
 
-        #endregion
+
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct SYSTEM_BATTERY_STATE
@@ -132,5 +129,8 @@ namespace InteroperatingUnmanagedCode
             public UInt32 DefaultAlert1;
             public UInt32 DefaultAlert2;
         }
+        
     }
+
+
 }
